@@ -92,7 +92,6 @@
                 radial-gradient(circle at 80% 85%, rgba(255, 255, 255, 0.05), transparent 50%);
         }
 
-        /* Dinamik Meteor CSS Sınıfı */
         .meteor {
             position: absolute;
             left: var(--meteor-left);
@@ -218,7 +217,6 @@
             position: relative;
         }
 
-        /* Profil Menüsü Altyapısı */
         .user-nav-profile-trigger {
             display: flex;
             align-items: center;
@@ -343,7 +341,6 @@
             box-shadow: 0 0 20px rgba(0,255,102,0.4);
         }
 
-        /* Pasif / Kilitli Buton Stili */
         .btn-disabled {
             background: rgba(255, 255, 255, 0.05) !important;
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -421,9 +418,9 @@
 
         .hero-main-title span {
             background: var(--grad-green-white);
-            background-clip: text; /* standard property for compatibility */
+            background-clip: text;
             -webkit-background-clip: text;
-            color: transparent; /* fallback for non-webkit browsers */
+            color: transparent;
             -webkit-text-fill-color: transparent;
         }
 
@@ -446,7 +443,6 @@
             margin: 0 auto 40px auto;
         }
 
-        /* Bilgi Kartları Grid Sistemi - 2 Kolona Güncellendi */
         .feature-cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -896,6 +892,11 @@
             transition: var(--premium-smooth);
         }
 
+        /* Tarayıcı Şifre Kayıt Pop-up'ını Engellemek İçin Özel Maskeleme */
+        .mask-pass-input {
+            -webkit-text-security: disk;
+        }
+
         .auth-input-field-row input:focus {
             border-color: var(--color-green);
             box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
@@ -959,7 +960,6 @@
             text-align: center;
         }
 
-        /* Küresel Toast Bildirim HUD Penceresi */
         .toast-system-hud-container {
             position: fixed;
             bottom: 30px;
@@ -986,7 +986,6 @@
             font-size: 0.9rem;
         }
 
-        /* FOOTER ALANI */
         footer {
             background: #000601;
             border-top: 1px solid var(--border-glow-soft);
@@ -1038,7 +1037,7 @@
                 <span class="live-pulse-dot"></span> BOXMINING : <span id="realtime-online-counter">Yükleniyor...</span> AKTİF OYUNCU
             </div>
             <h1 class="hero-main-title">LEVIA <span>CRAFT</span></h1>
-            <div class="hero-sub-title-dev">Gelişmiş Oyun <strong> Devrimi </strong></div>
+            <div class="hero-sub-title-dev">Yeşil & Beyaz <strong>Maden Devrimi</strong></div>
             <p class="hero-paragraph-desc">
                 Türkiye'nin en gelişmiş hile korumalı, lag alternatifi barındırmayan Ryzen tabanlı BoxMining dünyasında rütbeni seç, edit madenlerini kaz ve ekibini kurarak adaleti sen sağla!
             </p>
@@ -1048,7 +1047,6 @@
             </div>
         </section>
 
-        <!-- Sadeleştirilmiş ve Güncellenmiş Kart Yapısı (Grid 2 Kolon Olarak Düzenlendi) -->
         <section class="container feature-cards-grid" data-aos="fade-up">
             <div class="feature-card-item">
                 <div class="feature-card-icon"><i class="fa-solid fa-cubes"></i></div>
@@ -1072,7 +1070,7 @@
 
             <div class="store-filter-navigation">
                 <button class="store-filter-btn active-filter" id="fbtn-vip" onclick="switchStoreCategoryDisplay('vip')">VIP Rütbeler</button>
-                <button class="store-filter-btn" id="fbtn-crates" onclick="switchStoreCategoryDisplay('crates')">Kasalar </button>
+                <button class="store-filter-btn" id="fbtn-crates" onclick="switchStoreCategoryDisplay('crates')">Kasa Paketleri</button>
             </div>
 
             <div class="store-products-grid active-grid" id="store-grid-vip">
@@ -1177,13 +1175,13 @@
         <div class="container profile-dashboard-layout">
             <aside class="profile-sidebar-card">
                 <div class="dynamic-skin-input-group">
-                    <input type="text" id="skin-username-target-input" value="trpro16" placeholder="Karakter Adı Girin...">
+                    <input type="text" id="skin-username-target-input" value="Steve" placeholder="Karakter Adı Girin...">
                     <i class="fa-solid fa-arrows-rotate" onclick="reloadMinecraftSkinDisplay()"></i>
                 </div>
                 <div class="minecraft-skin-viewer-box">
-                    <img src="https://minotar.net/armor/body/trpro16/140.png" id="dom-avatar-render-node" alt="Skin">
+                    <img src="https://minotar.net/armor/body/Steve/140.png" id="dom-avatar-render-node" alt="Skin">
                 </div>
-                <h3 id="dom-profile-username-text">trpro16</h3>
+                <h3 id="dom-profile-username-text">Oyuncu</h3>
                 <div class="profile-rank-status-sub" id="dom-profile-role-text">Misafir Oyuncu</div>
             </aside>
 
@@ -1195,7 +1193,7 @@
                     </div>
                     <div class="numerical-stat-box">
                         <div class="num-stat-title">Mevcut Rütbe</div>
-                        <div class="num-stat-value" style="color:var(--color-green);" id="dom-profile-rank-text">oyuncu</div>
+                        <div class="num-stat-value" style="color:var(--color-green);" id="dom-profile-rank-text">YOK</div>
                     </div>
                 </div>
 
@@ -1227,14 +1225,15 @@
                     <button class="auth-tab-btn-trigger" id="auth-tab-register" onclick="toggleAuthPanelMode('register')">Kayıt Ol</button>
                 </div>
 
+                <!-- Şifre pop-up engelleyici form yapısı -->
                 <div class="auth-form-view-block active-block" id="form-block-login">
                     <div class="auth-input-field-row">
                         <i class="fa-solid fa-user"></i>
-                        <input type="text" id="auth-login-username" placeholder="Minecraft Kullanıcı Adınız">
+                        <input type="text" id="auth-login-username" placeholder="Minecraft Kullanıcı Adınız" autocomplete="off">
                     </div>
                     <div class="auth-input-field-row">
                         <i class="fa-solid fa-lock"></i>
-                        <input type="password" id="auth-login-password" placeholder="Şifreniz">
+                        <input type="text" class="mask-pass-input" id="auth-login-password" placeholder="Şifreniz" autocomplete="off" spellcheck="false">
                     </div>
                     <button class="btn-base btn-navy-cyan" style="width:100%; justify-content:center;" onclick="executeOturomAcma()"><i class="fa-solid fa-right-to-bracket"></i> Sisteme Giriş Yap</button>
                 </div>
@@ -1242,11 +1241,11 @@
                 <div class="auth-form-view-block" id="form-block-register">
                     <div class="auth-input-field-row">
                         <i class="fa-solid fa-user-plus"></i>
-                        <input type="text" id="auth-reg-username" placeholder="Oyundaki Nickiniz">
+                        <input type="text" id="auth-reg-username" placeholder="Oyundaki Nickiniz" autocomplete="off">
                     </div>
                     <div class="auth-input-field-row">
                         <i class="fa-solid fa-key"></i>
-                        <input type="password" id="auth-reg-password" placeholder="Güvenli Şifre">
+                        <input type="text" class="mask-pass-input" id="auth-reg-password" placeholder="Güvenli Şifre" autocomplete="off" spellcheck="false">
                     </div>
                     <button class="btn-base btn-blue-white" style="width:100%; justify-content:center;" onclick="executeKayitOlma()"><i class="fa-solid fa-user-check"></i> Kayıt İşlemini Tamamla</button>
                 </div>
@@ -1290,12 +1289,12 @@
             <div class="admin-dashboard-grid-layout">
                 <div class="admin-action-card-control">
                     <h4>Acil Durum Konsol Kilidi</h4>
-                    <p style="color:var(--color-gray-text); font-size:0.85rem; margin:10px 0 20px 0;">Sadece 'trpro16' kullanıcısına muafiyet tanıyarak konsol yetkilerini dondurur.</p>
+                    <p style="color:var(--color-gray-text); font-size:0.85rem; margin:10px 0 20px 0;">Yetkili konsol erişimlerini geçici olarak dondurur.</p>
                     <button class="btn-base btn-navy-cyan" style="background:var(--grad-danger); color: #fff;" onclick="triggerAdminSecurityAction('console_lock')">Kilidi Aktif Et</button>
                 </div>
                 <div class="admin-action-card-control">
                     <h4>2FA Yetkili Doğrulaması</h4>
-                    <p style="color:var(--color-gray-text); font-size:0.85rem; margin:10px 0 20px 0;">Ht4MyhticPvP, justinbeceren ve SxNaim için ek güvenlik protokolü fırlatır.</p>
+                    <p style="color:var(--color-gray-text); font-size:0.85rem; margin:10px 0 20px 0;">Yetkili ekibi için ek güvenlik protokolü fırlatır.</p>
                     <button class="btn-base btn-navy-cyan" onclick="triggerAdminSecurityAction('2fa_lock')">Doğrulamayı Zorunlu Kıl</button>
                 </div>
             </div>
@@ -1313,7 +1312,7 @@
     <script>
         AOS.init({ duration: 700, once: true });
 
-        // METEOR KAYMA MOTORU (DYNAMIC METEOR GENERATOR)
+        // METEOR KAYMA MOTORU
         function generateMeteorsEngine() {
             const bgCanvas = document.getElementById('meteor-background-canvas');
             if (!bgCanvas) return;
@@ -1340,12 +1339,8 @@
             }, 800);
         }
 
-        // DİNAMİK KAYIT VERİTABANI (Local Database Emulation)
-        // trpro16 hesabı varsayılan olarak tanımlandı.
-        let REGISTERED_USERS_DB = {
-            'trpro16': '123456'
-        };
-
+        // TAMAMEN BOŞ VERİTABANI (Tüm varsayılan ve kayıtlı kullanıcılar temizlendi)
+        let REGISTERED_USERS_DB = {};
         let APP_USER_SESSION = null;
 
         function fireToastNotification(msg, isErr = false) {
@@ -1368,9 +1363,7 @@
             setTimeout(() => { toast.classList.remove('triggered'); }, 4000);
         }
 
-        // GÜNCELLENMİŞ SAYFA VE URL YÖNETİM SİSTEMİ (History API)
         function executeViewSwitch(viewId, updateHistory = true) {
-            // GÜVENLİK BARİYERİ: Giriş yapmadan Profil veya Mağaza sayfalarına gidişi engelleme
             if ((viewId === 'profile' || viewId === 'store') && !APP_USER_SESSION) {
                 fireToastNotification("Bu sayfayı görüntülemek için önce giriş yapmalısınız!", true);
                 executeViewSwitch('auth');
@@ -1388,7 +1381,6 @@
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Tarayıcı Adres Çubuğunu (URL) Temiz Şekilde Güncelleme
             if (updateHistory) {
                 let path = '/';
                 if (viewId === 'store') path = '/magaza';
@@ -1432,23 +1424,20 @@
                 return;
             }
 
-            // GÜVENLİ KAYIT KONTROLÜ
             if (!REGISTERED_USERS_DB[user]) {
                 fireToastNotification("Bu kullanıcı adı sistemde kayıtlı değil! Önce Kayıt Olun.", true);
                 return;
             }
 
-            // ŞİFRE DOĞRULAMA KONTROLÜ
             if (REGISTERED_USERS_DB[user] !== pass) {
                 fireToastNotification("Hatalı şifre! Lütfen tekrar deneyin.", true);
                 return;
             }
 
-            // Doğrulama Başarılı -> Oturum Aç
             APP_USER_SESSION = {
                 username: user,
-                cash: (user.toLowerCase() === 'trpro16') ? 1000 : 0,
-                rank: (user.toLowerCase() === 'trpro16') ? 'Kurucu' : 'YOK'
+                cash: 0,
+                rank: 'Oyuncu'
             };
 
             synchronizeUserUIData();
@@ -1470,23 +1459,18 @@
                 return;
             }
 
-            // Yeni kullanıcıyı sisteme kaydet
             REGISTERED_USERS_DB[user] = pass;
-
-            fireToastNotification("Kayıt başarıyla tamamlandı, şimdi giriş yapabilirsiniz.");
+            fireToastNotification("Kayıt başarıyla tamamlandı! Şimdi giriş yapabilirsiniz.");
             
-            // Giriş alanlarını otomatik doldur ve giriş sekmesine geç
             document.getElementById('auth-login-username').value = user;
             document.getElementById('auth-login-password').value = pass;
             toggleAuthPanelMode('login');
         }
 
-        // KULLANICI ARAYÜZÜNÜ OTURUM DURUMUNA GÖRE SENKRONİZE ETME
         function synchronizeUserUIData() {
             const navZone = document.getElementById('navbar-auth-state-injection-target');
             
             if(!APP_USER_SESSION) {
-                // Oturum yoksa: Giriş yap butonunu göster
                 navZone.innerHTML = `
                     <button class="btn-base btn-navy-cyan" onclick="executeViewSwitch('auth')"><i class="fa-solid fa-right-to-bracket"></i> Giriş Yap</button>
                 `;
@@ -1494,7 +1478,6 @@
                 return;
             }
 
-            // Oturum varsa: Profil avatar alanını ve altında açılır menüsünü enjekte et
             navZone.innerHTML = `
                 <div class="user-nav-profile-trigger" onclick="toggleUserDropdownMenu(event)">
                     <img src="https://minotar.net/avatar/${APP_USER_SESSION.username}/24.png" style="border-radius:4px;">
@@ -1513,17 +1496,10 @@
             document.getElementById('skin-username-target-input').value = APP_USER_SESSION.username;
             document.getElementById('dom-profile-cash-text').innerText = `${APP_USER_SESSION.cash} Kredi / TL`;
             document.getElementById('dom-profile-rank-text').innerText = APP_USER_SESSION.rank;
-            document.getElementById('dom-profile-role-text').innerText = (APP_USER_SESSION.username.toLowerCase() === 'trpro16') ? 'Kurucu & Geliştirici' : 'Oyuncu';
+            document.getElementById('dom-profile-role-text').innerText = 'Oyuncu';
             document.getElementById('dom-avatar-render-node').src = `https://minotar.net/armor/body/${APP_USER_SESSION.username}/140.png`;
-
-            if(APP_USER_SESSION.username.toLowerCase() === 'trpro16') {
-                document.getElementById('admin-nav-item').style.display = 'block';
-            } else {
-                document.getElementById('admin-nav-item').style.display = 'none';
-            }
         }
 
-        // Açılır menüyü açma/kapatma tetikleyicisi
         function toggleUserDropdownMenu(event) {
             event.stopPropagation();
             const menu = document.getElementById('user-dropdown-menu-list');
@@ -1532,7 +1508,6 @@
             }
         }
 
-        // Dışarıya tıklandığında menünün otomatik kapanması
         window.addEventListener('click', () => {
             const menu = document.getElementById('user-dropdown-menu-list');
             if (menu && menu.classList.contains('show')) {
@@ -1540,11 +1515,10 @@
             }
         });
 
-        // GÜVENLİ ÇIKIŞ YAPMA SİSTEMİ
         function executeOturumKapatma() {
             APP_USER_SESSION = null;
             synchronizeUserUIData();
-            fireToastNotification("Başarıyla çıkış yapıldı. Güvenle ayrıldınız.");
+            fireToastNotification("Başarıyla çıkış yapıldı.");
             executeViewSwitch('home');
         }
 
@@ -1552,24 +1526,21 @@
             const inputVal = document.getElementById('skin-username-target-input').value.trim();
             if(!inputVal) return;
             document.getElementById('dom-avatar-render-node').src = `https://minotar.net/armor/body/${inputVal}/140.png`;
-            fireToastNotification(`${inputVal} skin verisi Minotar API üzerinden güncellendi.`);
+            fireToastNotification(`${inputVal} skin verisi güncellendi.`);
         }
 
-        // SATIN ALMA BLOKAJ MOTORU
         function executeProductPurchaseSim(pName, price, isRealMoney = false) {
-            // Satın alımlar kapatıldı uyarısı
             fireToastNotification("Satın alımlar geçici olarak devre dışı bırakılmıştır!", true);
         }
 
         function triggerAdminSecurityAction(type) {
             if(type === 'console_lock') {
-                fireToastNotification("🚨 KRİTİK: Konsol erişimi 'trpro16' harici tüm kullanıcılara kapatıldı!", true);
+                fireToastNotification("🚨 Konsol kilitlendi!", true);
             } else if(type === '2fa_lock') {
-                fireToastNotification("🔒 Üst Düzey Yetkililer (Ht4MyhticPvP, justinbeceren, SxNaim) için 2FA doğrulaması gönderildi.");
+                fireToastNotification("🔒 2FA doğrulaması fırlatıldı.");
             }
         }
 
-        // GERÇEK OYUNCU SAYISI ÇEKME MOTORU (MINECRAFT SERVER API INTEGRATION)
         function fetchRealMinecraftPlayers() {
             const counterNode = document.getElementById('realtime-online-counter');
             if(!counterNode) return;
@@ -1589,7 +1560,6 @@
                 });
         }
 
-        // TARAYICI GEÇMİŞİ VE İLK YÜKLENME DİNLEYİCİLERİ
         window.addEventListener('popstate', (event) => {
             const viewId = event.state ? event.state.viewId : 'home';
             executeViewSwitch(viewId, false);
@@ -1615,8 +1585,6 @@
 
         generateMeteorsEngine();
         fetchRealMinecraftPlayers();
-
-        // Her 30 saniyede bir gerçek oyuncu sayısını doğrula
         setInterval(fetchRealMinecraftPlayers, 30000);
     </script>
 </body>
