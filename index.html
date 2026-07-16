@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levia Craft | Profesyonel Yeşil-Beyaz BoxMining Web Paneli</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700&family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. ÇEKİRDEK STİL VE DEĞİŞKEN MİMARİSİ (CORE STYLES & VARIABLES)
+           ========================================================================== */
+        :root {
+            --bg-deep-space: #020c04;
+            --bg-panel-dark: rgba(4, 24, 8, 0.75);
+            --bg-panel-solid: #041f0a;
+            --bg-panel-hover: rgba(4, 46, 13, 0.9);
+            
+            /* Tema: Yeşil ve Beyaz Geçişleri */
+            --grad-green-white: linear-gradient(135deg, #00ff66 0%, #ffffff 100%);
+            --grad-pure-green: linear-gradient(135deg, #006400 0%, #00ff66 100%);
+            --grad-green-dark: linear-gradient(135deg, #00ff66 0%, #003311 100%);
+            --grad-danger: linear-gradient(135deg, #4c0505 0%, #ff1f1f 100%);
+            
+            --color-green: #00ff66;
+            --color-white: #ffffff;
+            --color-silver: #e2e8f0;
+            --color-gray-text: #cbd5e1;
+            --color-success: #00f5d4;
+            
+            --border-glow-soft: rgba(0, 255, 102, 0.15);
+            --border-glow-hard: rgba(0, 255, 102, 0.45);
+            
+            --font-head: 'Montserrat', sans-serif;
+            --font-main: 'Poppins', sans-serif;
+            --premium-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Küresel Resetleme Alanı */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            user-select: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-deep-space);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--color-green), var(--color-white));
+            border-radius: 5px;
+        }
+
+        body {
+            background-color: var(--bg-deep-space);
+            color: var(--color-white);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================================================
+           METEOR KAYMA EFEKT MOTORU (METEOR SHOWER BACKGROUND)
+           ========================================================================== */
+        .animated-space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -5;
+            overflow: hidden;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 10% 15%, rgba(0, 255, 102, 0.12), transparent 45%),
+                radial-gradient(circle at 80% 85%, rgba(255, 255, 255, 0.05), transparent 50%);
+        }
+
+        /* Dinamik Meteor CSS Sınıfı */
+        .meteor {
+            position: absolute;
+            left: var(--meteor-left);
+            top: var(--meteor-top);
+            height: 2px;
+            background: linear-gradient(-45deg, var(--color-green), rgba(255,255,255,0));
+            filter: drop-shadow(0 0 6px #00ff66);
+            animation: meteorFall var(--meteor-duration) linear infinite;
+        }
+
+        @keyframes meteorFall {
+            0% {
+                transform: rotate(-45deg) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: rotate(-45deg) translateX(-100px) scale(1);
+            }
+            100% {
+                transform: rotate(-45deg) translateX(-1000px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* ==========================================================================
+           2. NAVIGASYON VE LOGO ALANI (NAVIGATION BAR)
+           ========================================================================== */
+        .navbar-core {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(2, 12, 4, 0.95);
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--border-glow-soft);
+            padding: 15px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .brand-icon-hexagon {
+            width: 48px;
+            height: 48px;
+            background: var(--grad-green-white);
+            border: 1px solid var(--color-green);
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-head);
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: #020c04;
+            box-shadow: 0 0 20px rgba(0,255,102,0.4);
+            transition: var(--premium-smooth);
+        }
+
+        .brand-logo-wrapper:hover .brand-icon-hexagon {
+            transform: rotate(15deg) scale(1.08);
+            box-shadow: 0 0 30px var(--color-green);
+        }
+
+        .brand-name-text {
+            font-family: var(--font-head);
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            color: var(--color-white);
+        }
+
+        .brand-name-text span {
+            color: var(--color-green);
+            text-shadow: 0 0 15px rgba(0,255,102,0.5);
+        }
+
+        .nav-links-list {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-item-link {
+            color: var(--color-gray-text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: var(--premium-smooth);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item-link:hover, .nav-item-link.active-nav {
+            color: var(--color-white);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .nav-item-link.active-nav {
+            border-bottom: 2px solid var(--color-green);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .nav-user-action-zone {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+        }
+
+        /* Profil Menüsü Altyapısı */
+        .user-nav-profile-trigger {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 8px 15px;
+            border-radius: 10px;
+            border: 1px solid var(--border-glow-soft);
+            cursor: pointer;
+            transition: var(--premium-smooth);
+        }
+
+        .user-nav-profile-trigger:hover {
+            border-color: var(--color-green);
+            background: rgba(0, 255, 102, 0.05);
+        }
+
+        .user-dropdown-menu {
+            position: absolute;
+            top: 55px;
+            right: 0;
+            background: #041f0a;
+            border: 1px solid var(--border-glow-hard);
+            border-radius: 12px;
+            padding: 8px;
+            width: 180px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 10001;
+        }
+
+        .user-dropdown-menu.show {
+            display: flex;
+            animation: dropdownFade 0.2s ease-out forwards;
+        }
+
+        @keyframes dropdownFade {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dropdown-item-btn {
+            background: transparent;
+            border: none;
+            color: var(--color-white);
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            text-align: left;
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--premium-smooth);
+        }
+
+        .dropdown-item-btn:hover {
+            background: rgba(0, 255, 102, 0.1);
+            color: var(--color-green);
+        }
+
+        .dropdown-item-btn.btn-logout-danger {
+            color: #ff3333;
+        }
+
+        .dropdown-item-btn.btn-logout-danger:hover {
+            background: rgba(255, 51, 51, 0.1);
+            color: #ff4d4d;
+        }
+
+        /* ==========================================================================
+           3. KÜRESEL BUTON STANDARTLARI (BUTTONS)
+           ========================================================================== */
+        .btn-base {
+            border: none;
+            padding: 12px 26px;
+            border-radius: 10px;
+            font-family: var(--font-main);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--premium-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-navy-cyan {
+            background: var(--grad-green-white);
+            color: #020c04;
+            box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3);
+        }
+        .btn-navy-cyan:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 255, 102, 0.6);
+        }
+
+        .btn-blue-white {
+            background: var(--grad-pure-green);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(0,255,102,0.2);
+        }
+        .btn-blue-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,255,102,0.4);
+        }
+
+        .btn-border-only {
+            background: transparent;
+            border: 2px solid var(--color-green);
+            color: var(--color-white);
+        }
+        .btn-border-only:hover {
+            background: var(--color-green);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0,255,102,0.4);
+        }
+
+        /* Pasif / Kilitli Buton Stili */
+        .btn-disabled {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: rgba(255, 255, 255, 0.3) !important;
+            cursor: not-allowed !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        /* ==========================================================================
+           4. ANA SAYFA VE HERO ARAYÜZÜ (HOME & HERO SECTION)
+           ========================================================================== */
+        .app-view-page {
+            display: none;
+            padding: 120px 0 60px 0;
+            animation: viewFadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .app-view-page.active-view {
+            display: block;
+        }
+
+        @keyframes viewFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-showcase {
+            min-height: 75vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .live-player-badge {
+            background: rgba(0, 255, 102, 0.08);
+            border: 1px solid var(--border-glow-soft);
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--color-white);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .live-pulse-dot {
+            width: 9px;
+            height: 9px;
+            background: var(--color-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--color-green);
+            animation: dynamicPulse 1.8s infinite;
+        }
+
+        @keyframes dynamicPulse {
+            0% { transform: scale(0.9); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.5; }
+        }
+
+        .hero-main-title {
+            font-family: var(--font-head);
+            font-size: 5.5rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+
+        .hero-main-title span {
+            background: var(--grad-green-white);
+            background-clip: text; /* standard property for compatibility */
+            -webkit-background-clip: text;
+            color: transparent; /* fallback for non-webkit browsers */
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub-title-dev {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-gray-text);
+            margin-bottom: 25px;
+        }
+
+        .hero-sub-title-dev strong {
+            color: var(--color-white);
+        }
+
+        .hero-paragraph-desc {
+            font-size: 1.05rem;
+            color: var(--color-gray-text);
+            max-width: 800px;
+            line-height: 1.7;
+            margin: 0 auto 40px auto;
+        }
+
+        /* Bilgi Kartları Grid Sistemi - 2 Kolona Güncellendi */
+        .feature-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .feature-cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-card-item {
+            background: var(--bg-panel-dark);
+            border: 1px solid var(--border-glow-soft);
+            border-radius: 20px;
+            padding: 35px;
+            backdrop-filter: blur(15px);
+            transition: var(--premium-smooth);
+        }
+
+        .feature-card-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-green);
+            background: var(--bg-panel-hover);
+        }
+
+        .feature-card-icon {
+            width: 65px;
+            height: 65px;
+            background: rgba(0,255,102,0.05);
+            border: 1px solid var(--border-glow-soft);
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            color: var(--color-green);
+            margin-bottom: 20px;
+        }
+
+        .feature-card-item h3 {
+            font-family: var(--font-head);
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .feature-card-item p {
+            color: var(--color-gray-text);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           5. SUNUCU MAĞAZASI PANELİ (STORE COMPONENT)
+           ========================================================================== */
+        .component-header-center {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .component-header-center h2 {
+            font-family: var(--font-head);
+            font-size: 2.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .component-header-center p {
+            color: var(--color-gray-text);
+            font-size: 1rem;
+            margin-top: 8px;
+        }
+
+        .store-filter-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .store-filter-btn {
+            background: var(--bg-panel-dark);
+            border: 1px solid var(--border-glow-soft);
+            color: var(--color-gray-text);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-family: var(--font-main);
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--premium-smooth);
+        }
+
+        .store-filter-btn.active-filter {
+            border-color: var(--color-green);
+            color: var(--color-white);
+            background: rgba(0,255,102,0.1);
+            box-shadow: 0 0 15px rgba(0,255,102,0.3);
+        }
+
+        .store-products-grid {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .store-products-grid.active-grid {
+            display: grid;
+        }
+
+        .product-premium-card {
+            background: var(--bg-panel-dark);
+            border: 1px solid var(--border-glow-soft);
+            border-radius: 22px;
+            overflow: hidden;
+            backdrop-filter: blur(15px);
+            transition: var(--premium-smooth);
+            position: relative;
+        }
+
+        .product-premium-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-green);
+            box-shadow: 0 12px 30px rgba(0, 255, 102, 0.3);
+        }
+
+        .product-card-banner {
+            height: 130px;
+            background: var(--grad-green-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3.2rem;
+            position: relative;
+            color: #020c04;
+        }
+
+        .product-card-banner.banner-white { background: var(--grad-pure-green); color: #000; }
+        .product-card-banner.banner-danger { background: var(--grad-danger); color: #fff; }
+
+        .product-card-body {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .product-tag-badge {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--color-green);
+            font-weight: 800;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .product-card-body h3 {
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .product-features-list {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 20px;
+            min-height: 100px;
+        }
+
+        .product-features-list li {
+            font-size: 0.85rem;
+            color: var(--color-gray-text);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .product-features-list li i {
+            color: var(--color-green);
+        }
+
+        .product-price-tag {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--color-white);
+            margin-bottom: 20px;
+        }
+
+        .product-price-tag span {
+            font-size: 0.9rem;
+            color: var(--color-gray-text);
+            font-weight: 400;
+        }
+
+        /* ==========================================================================
+           6. OYUNCU PROFİLİ VE SATIN ALMA GEÇMİŞİ (PROFILE SYSTEMS)
+           ========================================================================== */
+        .profile-dashboard-layout {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 992px) {
+            .profile-dashboard-layout { grid-template-columns: 1fr; }
+        }
+
+        .profile-sidebar-card {
+            background: var(--bg-panel-dark);
+            border: 1px solid var(--border-glow-soft);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .minecraft-skin-viewer-box {
+            min-height: 230px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 8px 16px rgba(0,255,102,0.3));
+        }
+
+        .minecraft-skin-viewer-box img {
+            width: 120px;
+            transition: var(--premium-smooth);
+        }
+
+        .dynamic-skin-input-group {
+            width: 100%;
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .dynamic-skin-input-group input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border-glow-soft);
+            border-radius: 10px;
+            color: var(--color-white);
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .dynamic-skin-input-group i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-green);
+            cursor: pointer;
+        }
+
+        .profile-sidebar-card h3 {
+            font-family: var(--font-head);
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+
+        .profile-rank-status-sub {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--color-green);
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        .profile-main-stats-content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .stats-numerical-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .numerical-stat-box {
+            background: var(--bg-panel-dark);
+            border: 1px solid var(--border-glow-soft);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(15px);
+        }
+
+        .num-stat-title {
+            font-size: 0.75rem;
+            color: var(--color-gray-text);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .num-stat-value {
+            font-family: var(--font-head);
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-top: 5px;
+        }
+
+        .data-table-container-block {
+            background: var(--bg-panel-dark);
+            border: 1px solid var(--border-glow-soft);
+            border-radius: 18px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+        }
+
+        .data-table-container-block h4 {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .panel-native-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .panel-native-table th {
+            padding: 14px;
+            color: var(--color-green);
+            font-family: var(--font-head);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            border-bottom: 2px solid rgba(255,255,255,0.05);
+        }
+
+        .panel-native-table td {
+            padding: 14px;
+            font-size: 0.88rem;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            color: var(--color-gray-text);
+        }
+
+        .table-pill-badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .pill-active-success {
+            background: rgba(0, 255, 102, 0.1);
+            color: var(--color-white);
+            border: 1px solid var(--color-green);
+        }
+
+        /* ==========================================================================
+           8. GÜVENLİ AUTH GİRİŞ / KAYIT MERKEZİ (AUTHENTICATION)
+           ========================================================================== */
+        .auth-card-flex-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 65vh;
+        }
+
+        .auth-central-panel-card {
+            background: var(--bg-panel-dark);
+            border: 1px solid var(--border-glow-soft);
+            border-radius: 24px;
+            padding: 45px;
+            width: 100%;
+            max-width: 440px;
+            backdrop-filter: blur(20px);
+        }
+
+        .auth-header-tabs-row {
+            display: flex;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border-glow-soft);
+            border-radius: 10px;
+            padding: 5px;
+            margin-bottom: 30px;
+        }
+
+        .auth-tab-btn-trigger {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--color-gray-text);
+            padding: 12px;
+            font-family: var(--font-main);
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--premium-smooth);
+        }
+
+        .auth-tab-btn-trigger.active-auth-tab {
+            background: var(--grad-green-white);
+            color: #020c04;
+        }
+
+        .auth-form-view-block {
+            display: none;
+        }
+
+        .auth-form-view-block.active-block {
+            display: block;
+        }
+
+        .auth-input-field-row {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .auth-input-field-row i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-gray-text);
+        }
+
+        .auth-input-field-row input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border-glow-soft);
+            border-radius: 10px;
+            color: var(--color-white);
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            transition: var(--premium-smooth);
+        }
+
+        .auth-input-field-row input:focus {
+            border-color: var(--color-green);
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+        }
+
+        /* ==========================================================================
+           9. SUNUCU KURALLARI MİMARİSİ
+           ========================================================================== */
+        .rules-linear-stack {
+            max-width: 900px;
+            margin: 0 auto 60px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .rule-item-box {
+            background: var(--bg-panel-dark);
+            border: 1px solid var(--border-glow-soft);
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .rule-numerical-index {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            font-weight: 900;
+            color: rgba(0, 255, 102, 0.2);
+        }
+
+        .rule-text-content h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .rule-text-content p {
+            color: var(--color-gray-text);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* ==========================================================================
+           10. YÖNETİCİ KONSOLU PANELİ (ADMIN PANEL)
+           ========================================================================== */
+        .admin-dashboard-grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .admin-action-card-control {
+            background: var(--bg-panel-dark);
+            border: 1px solid rgba(0, 255, 102, 0.2);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        /* Küresel Toast Bildirim HUD Penceresi */
+        .toast-system-hud-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #031c07;
+            border: 1px solid var(--border-glow-soft);
+            border-left: 5px solid var(--color-green);
+            border-radius: 8px;
+            padding: 16px 25px;
+            z-index: 10000;
+            transform: translateX(180%);
+            transition: var(--premium-smooth);
+        }
+
+        .toast-system-hud-container.triggered {
+            transform: translateX(0);
+        }
+
+        .toast-inner-flex-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* FOOTER ALANI */
+        footer {
+            background: #000601;
+            border-top: 1px solid var(--border-glow-soft);
+            padding: 50px 0 25px 0;
+            margin-top: 100px;
+            font-size: 0.85rem;
+            color: var(--color-gray-text);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="animated-space-background" id="meteor-background-canvas"></div>
+
+    <header class="navbar-core">
+        <div class="container nav-container">
+            <div class="brand-logo-wrapper" onclick="executeViewSwitch('home')">
+                <div class="brand-icon-hexagon">L</div>
+                <div class="brand-name-text">LEVIA <span>CRAFT</span></div>
+            </div>
+            
+            <nav>
+                <ul class="nav-links-list">
+                    <li><a href="#" class="nav-item-link active-nav" id="navlink-home" onclick="executeViewSwitch('home')"><i class="fa-solid fa-house"></i> Ana Sayfa</a></li>
+                    <li><a href="#" class="nav-item-link" id="navlink-store" onclick="executeViewSwitch('store')"><i class="fa-solid fa-basket-shopping"></i> Mağaza</a></li>
+                    <li><a href="#" class="nav-item-link" id="navlink-profile" onclick="executeViewSwitch('profile')"><i class="fa-solid fa-user"></i> Profilim</a></li>
+                    <li><a href="#" class="nav-item-link" id="navlink-rules" onclick="executeViewSwitch('rules')"><i class="fa-solid fa-shield"></i> Sunucu Kuralları</a></li>
+                    <li id="admin-nav-item" style="display: none;"><a href="#" class="nav-item-link" id="navlink-admin" onclick="executeViewSwitch('admin')" style="color:var(--color-green);"><i class="fa-solid fa-lock-open"></i> Yönetim</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-user-action-zone" id="navbar-auth-state-injection-target">
+                <button class="btn-base btn-navy-cyan" onclick="executeViewSwitch('auth')"><i class="fa-solid fa-right-to-bracket"></i> Giriş Yap</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="toast-system-hud-container" id="global-toast-hud">
+        <div class="toast-inner-flex-row">
+            <i class="fa-solid fa-circle-check" id="toast-hud-icon" style="color:var(--color-green);"></i>
+            <span id="toast-hud-msg-text">Sistem Aktif</span>
+        </div>
+    </div>
+
+    <main id="view-home" class="app-view-page active-view">
+        <section class="container hero-showcase" data-aos="zoom-in">
+            <div class="live-player-badge">
+                <span class="live-pulse-dot"></span> BOXMINING SEKTÖRÜ: <span id="realtime-online-counter">Yükleniyor...</span> AKTİF OYUNCU
+            </div>
+            <h1 class="hero-main-title">LEVIA <span>CRAFT</span></h1>
+            <div class="hero-sub-title-dev">Yeşil & Beyaz <strong>Maden Devrimi</strong></div>
+            <p class="hero-paragraph-desc">
+                Türkiye'nin en gelişmiş hile korumalı, lag alternatifi barındırmayan Ryzen tabanlı BoxMining dünyasında rütbeni seç, edit madenlerini kaz ve ekibini kurarak adaleti sen sağla!
+            </p>
+            <div style="display:flex; gap:15px;">
+                <button class="btn-base btn-navy-cyan" onclick="triggerIPClipCopy('levia.craftmc.com.tr')"><i class="fa-solid fa-copy"></i> levia.craftmc.com.tr</button>
+                <button class="btn-base btn-border-only" onclick="executeViewSwitch('store')"><i class="fa-solid fa-basket-shopping"></i> Ürünleri İncele</button>
+            </div>
+        </section>
+
+        <!-- Sadeleştirilmiş ve Güncellenmiş Kart Yapısı (Grid 2 Kolon Olarak Düzenlendi) -->
+        <section class="container feature-cards-grid" data-aos="fade-up">
+            <div class="feature-card-item">
+                <div class="feature-card-icon"><i class="fa-solid fa-cubes"></i></div>
+                <h3>Adil Maden Mekaniği</h3>
+                <p>LeviaVip and LeviaVip+ rütbelerine özel tanımlanmış mavi beton ve açık mavi beton hammadde alanları ile dengeli ekonomi.</p>
+            </div>
+            <div class="feature-card-item">
+                <div class="feature-card-icon"><i class="fa-solid fa-users-gear"></i></div>
+                <h3>Aktif Yetkili Kadrosu</h3>
+                <p>Sorunlarınıza anında çözüm üreten, adaleti sağlayan ve 7/24 aktif olarak oyun içi düzeni denetleyen tecrübeli destek ekibimiz.</p>
+            </div>
+        </section>
+    </main>
+
+    <section id="view-store" class="app-view-page">
+        <div class="container">
+            <div class="component-header-center">
+                <h2>Sunucu Mağazası</h2>
+                <p>İhtiyacınız olan premium rütbeleri ve kasaları güvenli altyapımızla satın alabilirsiniz.</p>
+            </div>
+
+            <div class="store-filter-navigation">
+                <button class="store-filter-btn active-filter" id="fbtn-vip" onclick="switchStoreCategoryDisplay('vip')">VIP Rütbeler</button>
+                <button class="store-filter-btn" id="fbtn-crates" onclick="switchStoreCategoryDisplay('crates')">Kasa Paketleri</button>
+            </div>
+
+            <div class="store-products-grid active-grid" id="store-grid-vip">
+                <div class="product-premium-card">
+                    <div class="product-card-banner"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="product-card-body">
+                        <span class="product-tag-badge">Giriş Seviyesi</span>
+                        <h3>VIP Rütbesi</h3>
+                        <ul class="product-features-list">
+                            <li><i class="fa-solid fa-circle-check"></i> Özel Maden Bölgesi</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Rütbeye Özel Set</li>
+                        </ul>
+                        <div class="product-price-tag">50 <span>Kredi</span></div>
+                        <button class="btn-base btn-disabled" style="width:100%; justify-content:center;" onclick="executeProductPurchaseSim('VIP', 50)"><i class="fa-solid fa-ban"></i> Satış Kapalı</button>
+                    </div>
+                </div>
+
+                <div class="product-premium-card">
+                    <div class="product-card-banner banner-white"><i class="fa-solid fa-gem"></i></div>
+                    <div class="product-card-body">
+                        <span class="product-tag-badge">Orta Seviye</span>
+                        <h3>MVIP Rütbesi</h3>
+                        <ul class="product-features-list">
+                            <li><i class="fa-solid fa-circle-check"></i> Özel Maden Bölgesi</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Rütbeye Özel Set</li>
+                        </ul>
+                        <div class="product-price-tag">80 <span>Kredi</span></div>
+                        <button class="btn-base btn-disabled" style="width:100%; justify-content:center;" onclick="executeProductPurchaseSim('MVIP', 80)"><i class="fa-solid fa-ban"></i> Satış Kapalı</button>
+                    </div>
+                </div>
+
+                <div class="product-premium-card" style="border: 1px solid var(--color-green);">
+                    <div class="product-card-banner"><i class="fa-solid fa-crown"></i></div>
+                    <div class="product-card-body">
+                        <span class="product-tag-badge">Üst Seviye</span>
+                        <h3>LeviaVip Rütbesi</h3>
+                        <ul class="product-features-list">
+                            <li><i class="fa-solid fa-circle-check"></i> Özel Maden Bölgesi</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Rütbeye Özel Set</li>
+                        </ul>
+                        <div class="product-price-tag">100 <span>Kredi</span></div>
+                        <button class="btn-base btn-disabled" style="width:100%; justify-content:center;" onclick="executeProductPurchaseSim('LeviaVip', 100)"><i class="fa-solid fa-ban"></i> Satış Kapalı</button>
+                    </div>
+                </div>
+
+                <div class="product-premium-card" style="border: 1px solid var(--color-white);">
+                    <div class="product-card-banner banner-white"><i class="fa-solid fa-dragon"></i></div>
+                    <div class="product-card-body">
+                        <span class="product-tag-badge" style="color:#000; font-weight: 900;">En Üst Seviye</span>
+                        <h3 style="color:var(--color-white);">LeviaVip+ Rütbesi</h3>
+                        <ul class="product-features-list">
+                            <li><i class="fa-solid fa-circle-check"></i> Özel Maden Bölgesi</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Rütbeye Özel Set</li>
+                        </ul>
+                        <div class="product-price-tag" style="color: var(--color-green);">120 <span>Kredi</span></div>
+                        <button class="btn-base btn-disabled" style="width:100%; justify-content:center;" onclick="executeProductPurchaseSim('LeviaVip+', 120)"><i class="fa-solid fa-ban"></i> Satış Kapalı</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-products-grid" id="store-grid-crates">
+                <div class="product-premium-card">
+                    <div class="product-card-banner"><i class="fa-solid fa-box"></i></div>
+                    <div class="product-card-body">
+                        <h3>Kit Kasası</h3>
+                        <div class="product-price-tag">50 <span>TL</span></div>
+                        <button class="btn-base btn-disabled" style="width:100%; justify-content:center;" onclick="executeProductPurchaseSim('Kit Kasası', 50, true)"><i class="fa-solid fa-ban"></i> Satış Kapalı</button>
+                    </div>
+                </div>
+
+                <div class="product-premium-card">
+                    <div class="product-card-banner banner-white"><i class="fa-solid fa-box-open"></i></div>
+                    <div class="product-card-body">
+                        <h3>Levia Kasası</h3>
+                        <div class="product-price-tag">40 <span>TL</span></div>
+                        <button class="btn-base btn-disabled" style="width:100%; justify-content:center;" onclick="executeProductPurchaseSim('Levia Kasası', 40, true)"><i class="fa-solid fa-ban"></i> Satış Kapalı</button>
+                    </div>
+                </div>
+
+                <div class="product-premium-card">
+                    <div class="product-card-banner"><i class="fa-solid fa-fire"></i></div>
+                    <div class="product-card-body">
+                        <h3>Event Kasası</h3>
+                        <div class="product-price-tag">30 <span>TL</span></div>
+                        <button class="btn-base btn-disabled" style="width:100%; justify-content:center;" onclick="executeProductPurchaseSim('Event Kasası', 30, true)"><i class="fa-solid fa-ban"></i> Satış Kapalı</button>
+                    </div>
+                </div>
+
+                <div class="product-premium-card">
+                    <div class="product-card-banner banner-white"><i class="fa-solid fa-coins"></i></div>
+                    <div class="product-card-body">
+                        <h3>Para Kasası</h3>
+                        <div class="product-price-tag">20 <span>TL</span></div>
+                        <button class="btn-base btn-disabled" style="width:100%; justify-content:center;" onclick="executeProductPurchaseSim('Para Kasası', 20, true)"><i class="fa-solid fa-ban"></i> Satış Kapalı</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="view-profile" class="app-view-page">
+        <div class="container profile-dashboard-layout">
+            <aside class="profile-sidebar-card">
+                <div class="dynamic-skin-input-group">
+                    <input type="text" id="skin-username-target-input" value="trpro16" placeholder="Karakter Adı Girin...">
+                    <i class="fa-solid fa-arrows-rotate" onclick="reloadMinecraftSkinDisplay()"></i>
+                </div>
+                <div class="minecraft-skin-viewer-box">
+                    <img src="https://minotar.net/armor/body/trpro16/140.png" id="dom-avatar-render-node" alt="Skin">
+                </div>
+                <h3 id="dom-profile-username-text">trpro16</h3>
+                <div class="profile-rank-status-sub" id="dom-profile-role-text">Misafir Oyuncu</div>
+            </aside>
+
+            <div class="profile-main-stats-content">
+                <div class="stats-numerical-row">
+                    <div class="numerical-stat-box">
+                        <div class="num-stat-title">Hesap Bakiyeniz (Kredi)</div>
+                        <div class="num-stat-value" id="dom-profile-cash-text">0 Kredi</div>
+                    </div>
+                    <div class="numerical-stat-box">
+                        <div class="num-stat-title">Mevcut Rütbe</div>
+                        <div class="num-stat-value" style="color:var(--color-green);" id="dom-profile-rank-text">YOK</div>
+                    </div>
+                </div>
+
+                <div class="data-table-container-block">
+                    <h4>Son Satın Alım ve Hesap Geçmişi</h4>
+                    <table class="panel-native-table" id="dom-profile-history-table">
+                        <thead>
+                            <tr>
+                                <th>İşlem ID</th>
+                                <th>Paket/Açıklama</th>
+                                <th>Maliyet</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>#0000</td><td>Sistem Oturumu Başlatıldı</td><td>0 Kredi</td><td><span class="table-pill-badge pill-active-success">Aktif</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="view-auth" class="app-view-page">
+        <div class="container auth-card-flex-wrapper">
+            <div class="auth-central-panel-card">
+                <div class="auth-header-tabs-row">
+                    <button class="auth-tab-btn-trigger active-auth-tab" id="auth-tab-login" onclick="toggleAuthPanelMode('login')">Giriş Yap</button>
+                    <button class="auth-tab-btn-trigger" id="auth-tab-register" onclick="toggleAuthPanelMode('register')">Kayıt Ol</button>
+                </div>
+
+                <div class="auth-form-view-block active-block" id="form-block-login">
+                    <div class="auth-input-field-row">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="auth-login-username" placeholder="Minecraft Kullanıcı Adınız">
+                    </div>
+                    <div class="auth-input-field-row">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="auth-login-password" placeholder="Şifreniz">
+                    </div>
+                    <button class="btn-base btn-navy-cyan" style="width:100%; justify-content:center;" onclick="executeOturomAcma()"><i class="fa-solid fa-right-to-bracket"></i> Sisteme Giriş Yap</button>
+                </div>
+
+                <div class="auth-form-view-block" id="form-block-register">
+                    <div class="auth-input-field-row">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <input type="text" id="auth-reg-username" placeholder="Oyundaki Nickiniz">
+                    </div>
+                    <div class="auth-input-field-row">
+                        <i class="fa-solid fa-key"></i>
+                        <input type="password" id="auth-reg-password" placeholder="Güvenli Şifre">
+                    </div>
+                    <button class="btn-base btn-blue-white" style="width:100%; justify-content:center;" onclick="executeKayitOlma()"><i class="fa-solid fa-user-check"></i> Kayıt İşlemini Tamamla</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="view-rules" class="app-view-page">
+        <div class="container">
+            <div class="component-header-center">
+                <h2>Sunucu Kuralları</h2>
+                <p>Adil ve güvenli bir oyun ortamı için kurallarımıza uymak zorunludur.</p>
+            </div>
+
+            <div class="rules-linear-stack">
+                <div class="rule-item-box">
+                    <div class="rule-numerical-index">01</div>
+                    <div class="rule-text-content">
+                        <h4>Üçüncü Parti Yazılım Engeli</h4>
+                        <p>BoxMining arenalarında makro, hile veya oyun dosyalarını manipüle eden client kullanımı süresiz ban sebebidir.</p>
+                    </div>
+                </div>
+                <div class="rule-item-box">
+                    <div class="rule-numerical-index">02</div>
+                    <div class="rule-text-content">
+                        <h4>Sohbet Güvenliği</h4>
+                        <p>Küfür, argo reklam ve oyuncuları aşağılayıcı söylemlerde bulunmak geçici/kalıcı susturulma ile cezalandırılır.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="view-admin" class="app-view-page">
+        <div class="container">
+            <div class="component-header-center">
+                <h2 style="color:var(--color-green);">Yönetici Güvenlik Konsolu</h2>
+                <p>Sunucu sızıntı koruması, acil durum kilitleri ve altyapı yönetim komutları.</p>
+            </div>
+
+            <div class="admin-dashboard-grid-layout">
+                <div class="admin-action-card-control">
+                    <h4>Acil Durum Konsol Kilidi</h4>
+                    <p style="color:var(--color-gray-text); font-size:0.85rem; margin:10px 0 20px 0;">Sadece 'trpro16' kullanıcısına muafiyet tanıyarak konsol yetkilerini dondurur.</p>
+                    <button class="btn-base btn-navy-cyan" style="background:var(--grad-danger); color: #fff;" onclick="triggerAdminSecurityAction('console_lock')">Kilidi Aktif Et</button>
+                </div>
+                <div class="admin-action-card-control">
+                    <h4>2FA Yetkili Doğrulaması</h4>
+                    <p style="color:var(--color-gray-text); font-size:0.85rem; margin:10px 0 20px 0;">Ht4MyhticPvP, justinbeceren ve SxNaim için ek güvenlik protokolü fırlatır.</p>
+                    <button class="btn-base btn-navy-cyan" onclick="triggerAdminSecurityAction('2fa_lock')">Doğrulamayı Zorunlu Kıl</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Levia Craft Web Network Altyapısı. Tüm Hakları Saklıdır.</p>
+            <p style="font-size:0.75rem; margin-top:5px; opacity:0.5;">Mojang AB veya Microsoft ile hiçbir resmi bağı bulunmamaktadır.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 700, once: true });
+
+        // METEOR KAYMA MOTORU (DYNAMIC METEOR GENERATOR)
+        function generateMeteorsEngine() {
+            const bgCanvas = document.getElementById('meteor-background-canvas');
+            if (!bgCanvas) return;
+
+            setInterval(() => {
+                const meteor = document.createElement('div');
+                meteor.className = 'meteor';
+                
+                const randomWidth = Math.floor(Math.random() * 150) + 80;
+                const randomLeft = Math.floor(Math.random() * window.innerWidth) + 300;
+                const randomTop = Math.floor(Math.random() * (window.innerHeight / 2)) - 100;
+                const randomDuration = (Math.random() * 3 + 2) + 's';
+
+                meteor.style.width = randomWidth + 'px';
+                meteor.style.setProperty('--meteor-left', randomLeft + 'px');
+                meteor.style.setProperty('--meteor-top', randomTop + 'px');
+                meteor.style.setProperty('--meteor-duration', randomDuration);
+
+                bgCanvas.appendChild(meteor);
+
+                setTimeout(() => {
+                    meteor.remove();
+                }, 5000);
+            }, 800);
+        }
+
+        // DİNAMİK KAYIT VERİTABANI (Local Database Emulation)
+        // trpro16 hesabı varsayılan olarak tanımlandı.
+        let REGISTERED_USERS_DB = {
+            'trpro16': '123456'
+        };
+
+        let APP_USER_SESSION = null;
+
+        function fireToastNotification(msg, isErr = false) {
+            const toast = document.getElementById('global-toast-hud');
+            const icon = document.getElementById('toast-hud-icon');
+            const text = document.getElementById('toast-hud-msg-text');
+
+            text.innerText = msg;
+            if(isErr) {
+                toast.style.borderLeftColor = "#ff1f1f";
+                icon.className = "fa-solid fa-triangle-exclamation";
+                icon.style.color = "#ff1f1f";
+            } else {
+                toast.style.borderLeftColor = "var(--color-green)";
+                icon.className = "fa-solid fa-circle-check";
+                icon.style.color = "var(--color-green)";
+            }
+
+            toast.classList.add('triggered');
+            setTimeout(() => { toast.classList.remove('triggered'); }, 4000);
+        }
+
+        function executeViewSwitch(viewId) {
+            // GÜVENLİK BARİYERİ: Giriş yapmadan Profil veya Mağaza sayfalarına gidişi engelleme
+            if ((viewId === 'profile' || viewId === 'store') && !APP_USER_SESSION) {
+                fireToastNotification("Bu sayfayı görüntülemek için önce giriş yapmalısınız!", true);
+                executeViewSwitch('auth');
+                return;
+            }
+
+            document.querySelectorAll('.app-view-page').forEach(view => view.classList.remove('active-view'));
+            document.querySelectorAll('.nav-item-link').forEach(link => link.classList.remove('active-nav'));
+
+            const targetView = document.getElementById(`view-${viewId}`);
+            if(targetView) targetView.classList.add('active-view');
+            
+            const targetLink = document.getElementById(`navlink-${viewId}`);
+            if(targetLink) targetLink.classList.add('active-nav');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function triggerIPClipCopy(ipText) {
+            navigator.clipboard.writeText(ipText).then(() => {
+                fireToastNotification("Sunucu adresi kopyalandı, oyuna giriş sağlayabilirsiniz!");
+            });
+        }
+
+        function switchStoreCategoryDisplay(catKey) {
+            document.querySelectorAll('.store-products-grid').forEach(g => g.classList.remove('active-grid'));
+            document.querySelectorAll('.store-filter-btn').forEach(b => b.classList.remove('active-filter'));
+
+            document.getElementById(`store-grid-${catKey}`).classList.add('active-grid');
+            document.getElementById(`fbtn-${catKey}`).classList.add('active-filter');
+        }
+
+        function toggleAuthPanelMode(mode) {
+            document.querySelectorAll('.auth-form-view-block').forEach(b => b.classList.remove('active-block'));
+            document.querySelectorAll('.auth-tab-btn-trigger').forEach(t => t.classList.remove('active-auth-tab'));
+
+            document.getElementById(`form-block-${mode}`).classList.add('active-block');
+            document.getElementById(`auth-tab-${mode}`).classList.add('active-auth-tab');
+        }
+
+        function executeOturomAcma() {
+            const user = document.getElementById('auth-login-username').value.trim();
+            const pass = document.getElementById('auth-login-password').value.trim();
+
+            if(!user || !pass) {
+                fireToastNotification("Lütfen kullanıcı adı ve şifrenizi girin.", true);
+                return;
+            }
+
+            // GÜVENLİ KAYIT KONTROLÜ
+            if (!REGISTERED_USERS_DB[user]) {
+                fireToastNotification("Bu kullanıcı adı sistemde kayıtlı değil! Önce Kayıt Olun.", true);
+                return;
+            }
+
+            // ŞİFRE DOĞRULAMA KONTROLÜ
+            if (REGISTERED_USERS_DB[user] !== pass) {
+                fireToastNotification("Hatalı şifre! Lütfen tekrar deneyin.", true);
+                return;
+            }
+
+            // Doğrulama Başarılı -> Oturum Aç
+            APP_USER_SESSION = {
+                username: user,
+                cash: (user.toLowerCase() === 'trpro16') ? 1000 : 0,
+                rank: (user.toLowerCase() === 'trpro16') ? 'Kurucu' : 'YOK'
+            };
+
+            synchronizeUserUIData();
+            fireToastNotification(`Başarıyla giriş yapıldı. Hoş geldin ${user}!`);
+            executeViewSwitch('profile');
+        }
+
+        function executeKayitOlma() {
+            const user = document.getElementById('auth-reg-username').value.trim();
+            const pass = document.getElementById('auth-reg-password').value.trim();
+
+            if(!user || !pass) {
+                fireToastNotification("Kayıt verileri boş bırakılamaz.", true);
+                return;
+            }
+
+            if (REGISTERED_USERS_DB[user]) {
+                fireToastNotification("Bu kullanıcı adı zaten alınmış!", true);
+                return;
+            }
+
+            // Yeni kullanıcıyı sisteme kaydet
+            REGISTERED_USERS_DB[user] = pass;
+
+            fireToastNotification("Kayıt başarıyla tamamlandı, şimdi giriş yapabilirsiniz.");
+            
+            // Giriş alanlarını otomatik doldur ve giriş sekmesine geç
+            document.getElementById('auth-login-username').value = user;
+            document.getElementById('auth-login-password').value = pass;
+            toggleAuthPanelMode('login');
+        }
+
+        // KULLANICI ARAYÜZÜNÜ OTURUM DURUMUNA GÖRE SENKRONİZE ETME
+        function synchronizeUserUIData() {
+            const navZone = document.getElementById('navbar-auth-state-injection-target');
+            
+            if(!APP_USER_SESSION) {
+                // Oturum yoksa: Giriş yap butonunu göster
+                navZone.innerHTML = `
+                    <button class="btn-base btn-navy-cyan" onclick="executeViewSwitch('auth')"><i class="fa-solid fa-right-to-bracket"></i> Giriş Yap</button>
+                `;
+                document.getElementById('admin-nav-item').style.display = 'none';
+                return;
+            }
+
+            // Oturum varsa: Profil avatar alanını ve altında açılır menüsünü enjekte et
+            navZone.innerHTML = `
+                <div class="user-nav-profile-trigger" onclick="toggleUserDropdownMenu(event)">
+                    <img src="https://minotar.net/avatar/${APP_USER_SESSION.username}/24.png" style="border-radius:4px;">
+                    <span style="font-size:0.85rem; font-weight:700; color: #fff;">${APP_USER_SESSION.username}</span>
+                    <i class="fa-solid fa-chevron-down" style="font-size:0.75rem; color:var(--color-green);"></i>
+                </div>
+                <div class="user-dropdown-menu" id="user-dropdown-menu-list">
+                    <button class="dropdown-item-btn" onclick="executeViewSwitch('profile')"><i class="fa-solid fa-user"></i> Profilim</button>
+                    <button class="dropdown-item-btn" onclick="executeViewSwitch('store')"><i class="fa-solid fa-basket-shopping"></i> Mağaza</button>
+                    <hr style="border:0; border-top:1px solid rgba(255,255,255,0.05); margin:4px 0;">
+                    <button class="dropdown-item-btn btn-logout-danger" onclick="executeOturumKapatma()"><i class="fa-solid fa-power-off"></i> Çıkış Yap</button>
+                </div>
+            `;
+
+            document.getElementById('dom-profile-username-text').innerText = APP_USER_SESSION.username;
+            document.getElementById('skin-username-target-input').value = APP_USER_SESSION.username;
+            document.getElementById('dom-profile-cash-text').innerText = `${APP_USER_SESSION.cash} Kredi / TL`;
+            document.getElementById('dom-profile-rank-text').innerText = APP_USER_SESSION.rank;
+            document.getElementById('dom-profile-role-text').innerText = (APP_USER_SESSION.username.toLowerCase() === 'trpro16') ? 'Kurucu & Geliştirici' : 'Oyuncu';
+            document.getElementById('dom-avatar-render-node').src = `https://minotar.net/armor/body/${APP_USER_SESSION.username}/140.png`;
+
+            if(APP_USER_SESSION.username.toLowerCase() === 'trpro16') {
+                document.getElementById('admin-nav-item').style.display = 'block';
+            } else {
+                document.getElementById('admin-nav-item').style.display = 'none';
+            }
+        }
+
+        // Açılır menüyü açma/kapatma tetikleyicisi
+        function toggleUserDropdownMenu(event) {
+            event.stopPropagation();
+            const menu = document.getElementById('user-dropdown-menu-list');
+            if (menu) {
+                menu.classList.toggle('show');
+            }
+        }
+
+        // Dışarıya tıklandığında menünün otomatik kapanması
+        window.addEventListener('click', () => {
+            const menu = document.getElementById('user-dropdown-menu-list');
+            if (menu && menu.classList.contains('show')) {
+                menu.classList.remove('show');
+            }
+        });
+
+        // GÜVENLİ ÇIKIŞ YAPMA SİSTEMİ
+        function executeOturumKapatma() {
+            APP_USER_SESSION = null;
+            synchronizeUserUIData();
+            fireToastNotification("Başarıyla çıkış yapıldı. Güvenle ayrıldınız.");
+            executeViewSwitch('home');
+        }
+
+        function reloadMinecraftSkinDisplay() {
+            const inputVal = document.getElementById('skin-username-target-input').value.trim();
+            if(!inputVal) return;
+            document.getElementById('dom-avatar-render-node').src = `https://minotar.net/armor/body/${inputVal}/140.png`;
+            fireToastNotification(`${inputVal} skin verisi Minotar API üzerinden güncellendi.`);
+        }
+
+        // SATIN ALMA BLOKAJ MOTORU
+        function executeProductPurchaseSim(pName, price, isRealMoney = false) {
+            // Satın alımlar kapatıldı uyarısı
+            fireToastNotification("Satın alımlar geçici olarak devre dışı bırakılmıştır!", true);
+        }
+
+        function triggerAdminSecurityAction(type) {
+            if(type === 'console_lock') {
+                fireToastNotification("🚨 KRİTİK: Konsol erişimi 'trpro16' harici tüm kullanıcılara kapatıldı!", true);
+            } else if(type === '2fa_lock') {
+                fireToastNotification("🔒 Üst Düzey Yetkililer (Ht4MyhticPvP, justinbeceren, SxNaim) için 2FA doğrulaması gönderildi.");
+            }
+        }
+
+        // GERÇEK OYUNCU SAYISI ÇEKME MOTORU (MINECRAFT SERVER API INTEGRATION)
+        function fetchRealMinecraftPlayers() {
+            const counterNode = document.getElementById('realtime-online-counter');
+            if(!counterNode) return;
+
+            fetch('https://api.mcsrvstat.us/2/levia.craftmc.com.tr')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.online) {
+                        counterNode.innerText = data.players.online;
+                    } else {
+                        counterNode.innerText = "0";
+                    }
+                })
+                .catch(error => {
+                    console.error("Minecraft API Hatası:", error);
+                    counterNode.innerText = "0";
+                });
+        }
+
+        generateMeteorsEngine();
+        fetchRealMinecraftPlayers();
+
+        // Her 30 saniyede bir gerçek oyuncu sayısını doğrula
+        setInterval(fetchRealMinecraftPlayers, 30000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+/* ==========================================================================
+   LEVIA CRAFT PREMIUM CORE MİMARİSİ (CRAFTRISE & LEADEROS STİLİ)
+   ========================================================================== */
+
+:root {
+    --bg-main: #02050b;
+    --bg-card: rgba(4, 11, 24, 0.7);
+    --border-glow: rgba(0, 210, 255, 0.15);
+    --color-cyan: #00d2ff;
+    --color-blue-deep: #0052d4;
+    --color-accent-neon: #00f5d4;
+    --text-pure: #ffffff;
+    --text-gray: #94a3b8;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Poppins', sans-serif;
+    --transition-premium: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+body { background-color: var(--bg-main); color: var(--text-pure); font-family: var(--font-body); overflow-x: hidden; }
+.container { width: 85%; max-width: 1440px; margin: 0 auto; }
+
+/* Dinamik Küresel Arka Plan Efektleri */
+.animated-bg { position: fixed; width: 100vw; height: 100vh; z-index: -1; overflow: hidden; pointer-events: none; }
+.glow-orb { position: absolute; border-radius: 50%; filter: blur(150px); opacity: 0.18; animation: pulseOrb 12s infinite alternate ease-in-out; }
+.orb-1 { width: 450px; height: 450px; background: var(--color-blue-deep); top: -10%; left: -5%; }
+.orb-2 { width: 550px; height: 550px; background: var(--color-cyan); bottom: -10%; right: -5%; animation-delay: 2s; }
+.orb-3 { width: 350px; height: 350px; background: var(--color-accent-neon); top: 35%; left: 45%; animation-delay: 4s; }
+.orb-4 { width: 400px; height: 400px; background: #750d37; bottom: 40%; left: 10%; opacity: 0.1; }
+
+@keyframes pulseOrb { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.15) translate(30px, 20px); } }
+
+/* ==========================================================================
+   ÜST MENÜ (NAVBAR) & CSS TABANLI AKILLI LOGO
+   ========================================================================== */
+.navbar {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    background: rgba(2, 5, 11, 0.85); backdrop-filter: blur(25px);
+    border-bottom: 1px solid var(--border-glow); padding: 16px 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
+
+.levia-dynamic-logo {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--color-blue-deep), var(--color-cyan));
+    display: flex; justify-content: center; align-items: center;
+    position: relative; overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
+    transition: var(--transition-premium);
+}
+.logo-inner-text { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 900; color: #fff; z-index: 2; }
+.logo-pulse-glow { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent); top: 0; left: -100%; transition: 0.6s; }
+.logo-area { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.logo-area:hover .levia-dynamic-logo { transform: rotate(5deg) scale(1.05); box-shadow: 0 0 25px rgba(0, 210, 255, 0.8); }
+.logo-area:hover .logo-pulse-glow { left: 100%; }
+.logo-text { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 900; letter-spacing: 0.5px; }
+.logo-text span { color: var(--color-cyan); text-shadow: 0 0 15px rgba(0, 210, 255, 0.3); }
+
+.nav-menu { display: flex; list-style: none; gap: 25px; }
+.nav-link {
+    color: var(--text-gray); text-decoration: none; font-weight: 600; font-size: 0.92rem;
+    display: flex; align-items: center; gap: 8px; transition: var(--transition-premium);
+    position: relative; padding: 6px 0;
+}
+.nav-link:hover, .nav-link.active { color: var(--text-pure); }
+.nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 3px; background: var(--color-cyan); border-radius: 10px; box-shadow: 0 0 8px var(--color-cyan); transition: var(--transition-premium); }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+.btn-login-nav {
+    background: linear-gradient(90deg, var(--color-blue-deep), var(--color-cyan)); border: none; padding: 10px 24px;
+    border-radius: 10px; font-weight: 700; color: #fff; cursor: pointer; font-family: var(--font-body);
+    box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2); transition: var(--transition-premium);
+}
+.btn-login-nav:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(0, 210, 255, 0.5); }
+
+/* ==========================================================================
+   ANA SAYFA (HERO) TASARIMI
+   ========================================================================== */
+.hero { min-height: 95vh; display: flex; justify-content: center; align-items: center; text-align: center; padding-top: 80px; }
+.hero-badge {
+    background: rgba(0, 210, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.2);
+    padding: 9px 20px; border-radius: 50px; font-weight: 800; font-size: 0.8rem;
+    color: var(--color-cyan); display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px;
+}
+.hero-badge .dot { width: 8px; height: 8px; background: var(--color-accent-neon); border-radius: 50%; box-shadow: 0 0 8px var(--color-accent-neon); }
+.hero-title { font-family: var(--font-heading); font-size: 5rem; font-weight: 900; }
+.grad-title { color: #fff; }
+.cyan-title { background: linear-gradient(90deg, #0072ff, var(--color-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-subtitle { font-size: 1.25rem; color: var(--text-gray); margin: 15px 0 35px 0; max-width: 700px; }
+.hero-buttons { display: flex; justify-content: center; gap: 15px; }
+
+.btn-primary-glow { background: linear-gradient(90deg, var(--color-blue-deep), var(--color-cyan)); color: #fff; font-weight: 800; padding: 15px 36px; border: none; border-radius: 12px; cursor: pointer; box-shadow: 0 8px 20px rgba(0, 210, 255, 0.2); font-family: var(--font-body); transition: var(--transition-premium); }
+.btn-primary-glow:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0, 210, 255, 0.45); }
+.btn-outline-premium { background: transparent; border: 2px solid var(--color-cyan); color: var(--color-cyan); padding: 15px 36px; border-radius: 12px; font-weight: 700; cursor: pointer; font-family: var(--font-body); transition: var(--transition-premium); }
+.btn-outline-premium:hover { background: var(--color-cyan); color: var(--bg-main); box-shadow: 0 0 20px rgba(0, 210, 255, 0.3); }
+
+.section-margin { margin-top: -60px; padding-bottom: 60px; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+.stat-card { background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 25px; display: flex; align-items: center; gap: 20px; backdrop-filter: blur(15px); }
+.stat-icon-wrapper { width: 56px; height: 56px; border-radius: 12px; background: rgba(0, 210, 255, 0.05); display: flex; justify-content: center; align-items: center; font-size: 1.5rem; color: var(--color-cyan); }
+.stat-info h3 { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; }
+.stat-info p { color: var(--text-gray); font-size: 0.85rem; margin-top: 2px; }
+
+/* ==========================================================================
+   MAĞAZA MODÜLLERİ (VIP & KASA AYRI KATEGORİ)
+   ========================================================================== */
+.page-section { display: none; padding: 100px 0; animation: filterIn 0.4s ease forwards; }
+.page-section.active-page { display: block; }
+.section-title { text-align: center; margin-bottom: 45px; }
+.section-title h2 { font-family: var(--font-heading); font-size: 2.6rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; }
+.section-title p { color: var(--text-gray); margin-top: 8px; font-size: 0.95rem; }
+
+.store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 20px; }
+.store-card { background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 20px; overflow: hidden; backdrop-filter: blur(15px); transition: var(--transition-premium); }
+.store-card:hover { transform: translateY(-6px); border-color: var(--color-cyan); box-shadow: 0 12px 30px rgba(0, 82, 212, 0.15); }
+.premium-border { border: 2px solid var(--color-cyan) !important; box-shadow: 0 0 15px rgba(0, 210, 255, 0.15); }
+
+.card-header-img { height: 140px; display: flex; justify-content: center; align-items: center; font-size: 3.5rem; color: #fff; position: relative; }
+.card-header-img::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 40%; background: linear-gradient(to top, var(--bg-card), transparent); }
+
+.vip-bg-1 { background: linear-gradient(135deg, #0a1128, #1c2541); }
+.vip-bg-2 { background: linear-gradient(135deg, #1d3557, #457b9d); }
+.vip-bg-3 { background: linear-gradient(135deg, #03045e, var(--color-cyan)); }
+.vip-bg-4 { background: linear-gradient(135deg, #140152, #0052d4); }
+.crate-bg-1 { background: linear-gradient(135deg, #4a0010, #9b0026); }
+.crate-bg-2 { background: linear-gradient(135deg, #0b2545, #134074); }
+.crate-bg-3 { background: linear-gradient(135deg, #2c003e, #fe346e); }
+.crate-bg-4 { background: linear-gradient(135deg, #004b23, #38b000); }
+
+.card-body { padding: 25px; text-align: center; }
+.item-category { font-size: 0.75rem; text-transform: uppercase; color: var(--text-gray); font-weight: 700; letter-spacing: 0.5px; }
+.item-category-exclusive { font-size: 0.75rem; text-transform: uppercase; color: var(--color-accent-neon); font-weight: 800; }
+.card-body h3 { font-size: 1.45rem; font-weight: 800; margin: 4px 0 12px 0; }
+.feature-list { list-style: none; text-align: left; margin-bottom: 20px; min-height: 90px; }
+.feature-list li { margin-bottom: 8px; color: var(--text-gray); font-size: 0.88rem; display: flex; align-items: center; gap: 8px; }
+.feature-list li i { color: var(--color-cyan); font-size: 0.95rem; }
+.price-tag { font-family: var(--font-heading); font-size: 2rem; font-weight: 900; color: var(--color-accent-neon); margin-bottom: 15px; }
+.price-tag span { font-size: 0.9rem; color: var(--text-gray); font-weight: 400; }
+
+.btn-buy { width: 100%; padding: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-glow); border-radius: 10px; font-weight: 700; color: var(--text-gray); cursor: pointer; font-family: var(--font-body); transition: var(--transition-premium); }
+.disabled-btn { background: rgba(255,68,68,0.04) !important; border-color: rgba(255,68,68,0.15) !important; color: #ff4444 !important; cursor: not-allowed !important; }
+
+/* ==========================================================================
+   SIRALAMA PANOLARI VE EKİP ALANI
+   ========================================================================== */
+.leaderboard-wrapper { background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 16px; padding: 25px; backdrop-filter: blur(15px); overflow-x: auto; }
+.leader-table { width: 100%; border-collapse: collapse; min-width: 600px; }
+.leader-table th, .leader-table td { padding: 16px 20px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.02); }
+.leader-table th { color: var(--color-cyan); font-family: var(--font-heading); text-transform: uppercase; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.5px; }
+.player-info-cell { display: flex; align-items: center; gap: 12px; }
+.player-head { border-radius: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+.player-meta strong { font-size: 1rem; display: block; }
+
+.badge-admin { background: #ee2e2e; font-size: 0.7rem; padding: 2px 7px; border-radius: 4px; font-weight: 700; color: #fff; }
+.badge-staff { background: #ff9f1c; font-size: 0.7rem; padding: 2px 7px; border-radius: 4px; font-weight: 700; color: #fff; }
+.badge-vip { background: var(--color-cyan); color: #02050b; font-size: 0.7rem; padding: 2px 7px; border-radius: 4px; font-weight: 700; }
+
+.rank-badge { display: inline-block; width: 30px; height: 30px; border-radius: 50%; text-align: center; line-height: 30px; }
+.role-admin { background: rgba(238, 46, 46, 0.12); color: #ee2e2e; }
+.role-staff { background: rgba(255, 159, 28, 0.12); color: #ff9f1c; }
+.role-vip { background: rgba(0, 210, 255, 0.12); color: var(--color-cyan); }
+.zero-stat { font-family: var(--font-heading); font-weight: 700; color: var(--text-gray); font-size: 0.95rem; }
+
+/* ==========================================================================
+   PROFİL & DASHBOARD YAPISI
+   ========================================================================== */
+.profile-layout { display: grid; grid-template-columns: 280px 1fr; gap: 30px; margin-top: 10px; }
+@media (max-width: 768px) { .profile-layout { grid-template-columns: 1fr; } }
+.profile-sidebar-card { background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 16px; padding: 30px; text-align: center; backdrop-filter: blur(15px); }
+.avatar-holder { margin-bottom: 15px; filter: drop-shadow(0 6px 12px rgba(0,210,255,0.2)); }
+.profile-sidebar-card h3 { font-size: 1.4rem; font-weight: 800; }
+.profile-rank-tag { color: var(--color-cyan); font-weight: 600; font-size: 0.8rem; margin-top: 2px; }
+
+.profile-main-details { display: flex; flex-direction: column; gap: 20px; }
+.info-dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+.dash-box { background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 14px; padding: 20px; position: relative; overflow: hidden; }
+.dash-title { font-size: 0.75rem; color: var(--text-gray); text-transform: uppercase; font-weight: 700; }
+.dash-value { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 900; margin: 6px 0; }
+.text-red { color: #ef4444; }
+.text-cyan { color: var(--color-cyan); }
+.dash-status-sub { font-size: 0.8rem; color: var(--text-gray); }
+.btn-sm-credit { width: 100%; margin-top: 10px; padding: 8px; font-size: 0.8rem; }
+
+.user-logged-nav { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); padding: 6px 14px; border-radius: 8px; cursor: pointer; }
+.user-logged-nav img { border-radius: 4px; }
+.user-logged-nav span { font-weight: 600; font-size: 0.9rem; }
+
+.history-table-wrapper { background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 14px; padding: 25px; }
+.history-table-wrapper h4 { font-size: 1.1rem; margin-bottom: 12px; }
+.history-table { width: 100%; border-collapse: collapse; }
+.history-table th, .history-table td { padding: 10px; text-align: left; font-size: 0.88rem; }
+.status-badge { padding: 3px 8px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; }
+.error-bg { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+
+/* ==========================================================================
+   GİRİŞ VE GELİŞMİŞ KAYIT SİSTEMİ PANELDEN GEÇİŞLİ
+   ========================================================================== */
+.auth-flex-center { display: flex; justify-content: center; align-items: center; min-height: 60vh; }
+.auth-card-premium { background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 40px; width: 100%; max-width: 440px; backdrop-filter: blur(25px); box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
+
+.auth-tab-headers { display: flex; background: rgba(2, 5, 11, 0.6); border: 1px solid var(--border-glow); border-radius: 10px; padding: 4px; margin-bottom: 25px; }
+.auth-tab-btn { flex: 1; padding: 10px; background: transparent; border: none; color: var(--text-gray); font-family: var(--font-body); font-weight: 700; border-radius: 8px; cursor: pointer; transition: var(--transition-premium); }
+.auth-tab-btn.active { background: linear-gradient(90deg, var(--color-blue-deep), var(--color-cyan)); color: #fff; box-shadow: 0 4px 12px rgba(0, 210, 255, 0.2); }
+
+.auth-sub-panel { display: none; }
+.auth-sub-panel.active-panel { display: block; animation: panelFade 0.3s ease-in-out forwards; }
+
+.auth-header { text-align: center; margin-bottom: 20px; }
+.auth-header h3 { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; }
+.auth-header p { color: var(--text-gray); font-size: 0.85rem; margin-top: 4px; }
+
+.input-field-group { position: relative; margin-bottom: 15px; }
+.input-field-group i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-gray); font-size: 0.95rem; }
+.input-field-group input { width: 100%; padding: 14px 14px 14px 44px; background: rgba(2, 5, 11, 0.7); border: 1px solid var(--border-glow); border-radius: 8px; color: #fff; font-size: 0.88rem; font-family: var(--font-body); transition: var(--transition-premium); }
+.input-field-group input:focus { border-color: var(--color-cyan); box-shadow: 0 0 10px rgba(0, 210, 255, 0.15); }
+
+.terms-accept-row { display: flex; align-items: flex-start; gap: 8px; margin: 12px 0 18px 0; }
+.terms-accept-row input { margin-top: 3px; cursor: pointer; }
+.terms-accept-row label { font-size: 0.78rem; color: var(--text-gray); line-height: 1.4; cursor: pointer; }
+
+.btn-auth-trigger { width: 100%; padding: 14px; font-weight: 800; border: none; background: var(--color-cyan); color: var(--bg-main); border-radius: 8px; cursor: pointer; font-family: var(--font-body); box-shadow: 0 4px 12px rgba(0, 210, 255, 0.2); transition: var(--transition-premium); }
+.btn-auth-trigger:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0, 210, 255, 0.4); }
+.register-btn-color { background: linear-gradient(90deg, #00f5d4, var(--color-cyan)) !important; color: #02050b !important; }
+
+/* Kurallar */
+.rules-container-box { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
+.rule-row-item { background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: 14px; padding: 20px; display: flex; gap: 20px; align-items: center; }
+.rule-number { font-family: var(--font-heading); font-size: 2rem; font-weight: 900; color: rgba(0, 210, 255, 0.15); }
+.rule-content-data h4 { font-size: 1.1rem; font-weight: 700; }
+.rule-content-data p { color: var(--text-gray); font-size: 0.88rem; margin-top: 3px; line-height: 1.5; }
+
+/* Toast Bildirim */
+.toast-notify { position: fixed; bottom: 25px; right: 25px; background: #040914; border: 1px solid var(--border-glow); border-left: 5px solid var(--color-cyan); border-radius: 8px; padding: 15px 25px; z-index: 9999; transform: translateX(180%); transition: var(--transition-premium); }
+.toast-notify.toast-active { transform: translateX(0); }
+.toast-content { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.9rem; }
+.toast-notify.success { border-left-color: var(--color-accent-neon); }
+.toast-notify.error { border-left-color: #ef4444; }
+
+/* Footer */
+footer { background: #010205; border-top: 1px solid var(--border-glow); padding: 50px 0 25px 0; margin-top: 80px; }
+.footer-layout { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 35px; padding-bottom: 35px; border-bottom: 1px solid rgba(255,255,255,0.02); }
+@media (max-width: 768px) { .footer-layout { grid-template-columns: 1fr; } }
+.footer-brand-column .footer-logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 900; margin-bottom: 12px; }
+.footer-brand-column .footer-logo span { color: var(--color-cyan); }
+.footer-brand-column p { color: var(--text-gray); font-size: 0.85rem; line-height: 1.6; max-width: 360px; }
+.footer-link-group h5 { font-family: var(--font-heading); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 15px; color: var(--color-cyan); }
+.footer-link-group ul { list-style: none; }
+.footer-link-group li { margin-bottom: 8px; }
+.footer-link-group a { color: var(--text-gray); text-decoration: none; font-size: 0.85rem; transition: var(--transition-premium); }
+.footer-link-group a:hover { color: #fff; padding-left: 4px; }
+.footer-bottom-bar { text-align: center; padding-top: 25px; color: var(--text-gray); font-size: 0.8rem; }
+
+@keyframes filterIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes panelFade { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
