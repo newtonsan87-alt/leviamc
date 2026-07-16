@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Levia Craft | Profesyonel Yeşil-Beyaz BoxMining Web Paneli</title>
+    <title>Levia Craft | Gelişmiş Minecraft Sunucusu</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700&family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
@@ -1011,11 +1011,11 @@
             
             <nav>
                 <ul class="nav-links-list">
-                    <li><a href="#" class="nav-item-link active-nav" id="navlink-home" onclick="executeViewSwitch('home')"><i class="fa-solid fa-house"></i> Ana Sayfa</a></li>
-                    <li><a href="#" class="nav-item-link" id="navlink-store" onclick="executeViewSwitch('store')"><i class="fa-solid fa-basket-shopping"></i> Mağaza</a></li>
-                    <li><a href="#" class="nav-item-link" id="navlink-profile" onclick="executeViewSwitch('profile')"><i class="fa-solid fa-user"></i> Profilim</a></li>
-                    <li><a href="#" class="nav-item-link" id="navlink-rules" onclick="executeViewSwitch('rules')"><i class="fa-solid fa-shield"></i> Sunucu Kuralları</a></li>
-                    <li id="admin-nav-item" style="display: none;"><a href="#" class="nav-item-link" id="navlink-admin" onclick="executeViewSwitch('admin')" style="color:var(--color-green);"><i class="fa-solid fa-lock-open"></i> Yönetim</a></li>
+                    <li><a href="javascript:void(0)" class="nav-item-link active-nav" id="navlink-home" onclick="executeViewSwitch('home')"><i class="fa-solid fa-house"></i> Ana Sayfa</a></li>
+                    <li><a href="javascript:void(0)" class="nav-item-link" id="navlink-store" onclick="executeViewSwitch('store')"><i class="fa-solid fa-basket-shopping"></i> Mağaza</a></li>
+                    <li><a href="javascript:void(0)" class="nav-item-link" id="navlink-profile" onclick="executeViewSwitch('profile')"><i class="fa-solid fa-user"></i> Profilim</a></li>
+                    <li><a href="javascript:void(0)" class="nav-item-link" id="navlink-rules" onclick="executeViewSwitch('rules')"><i class="fa-solid fa-shield"></i> Sunucu Kuralları</a></li>
+                    <li id="admin-nav-item" style="display: none;"><a href="javascript:void(0)" class="nav-item-link" id="navlink-admin" onclick="executeViewSwitch('admin')" style="color:var(--color-green);"><i class="fa-solid fa-lock-open"></i> Yönetim</a></li>
                 </ul>
             </nav>
 
@@ -1035,7 +1035,7 @@
     <main id="view-home" class="app-view-page active-view">
         <section class="container hero-showcase" data-aos="zoom-in">
             <div class="live-player-badge">
-                <span class="live-pulse-dot"></span> BOXMINING SEKTÖRÜ: <span id="realtime-online-counter">Yükleniyor...</span> AKTİF OYUNCU
+                <span class="live-pulse-dot"></span> BOXMINING : <span id="realtime-online-counter">Yükleniyor...</span> AKTİF OYUNCU
             </div>
             <h1 class="hero-main-title">LEVIA <span>CRAFT</span></h1>
             <div class="hero-sub-title-dev">Yeşil & Beyaz <strong>Maden Devrimi</strong></div>
@@ -1368,7 +1368,8 @@
             setTimeout(() => { toast.classList.remove('triggered'); }, 4000);
         }
 
-        function executeViewSwitch(viewId) {
+        // GÜNCELLENMİŞ SAYFA VE URL YÖNETİM SİSTEMİ (History API)
+        function executeViewSwitch(viewId, updateHistory = true) {
             // GÜVENLİK BARİYERİ: Giriş yapmadan Profil veya Mağaza sayfalarına gidişi engelleme
             if ((viewId === 'profile' || viewId === 'store') && !APP_USER_SESSION) {
                 fireToastNotification("Bu sayfayı görüntülemek için önce giriş yapmalısınız!", true);
@@ -1386,6 +1387,18 @@
             if(targetLink) targetLink.classList.add('active-nav');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Tarayıcı Adres Çubuğunu (URL) Temiz Şekilde Güncelleme
+            if (updateHistory) {
+                let path = '/';
+                if (viewId === 'store') path = '/magaza';
+                else if (viewId === 'profile') path = '/profil';
+                else if (viewId === 'rules') path = '/kurallar';
+                else if (viewId === 'auth') path = '/giris';
+                else if (viewId === 'admin') path = '/yonetim';
+
+                window.history.pushState({ viewId: viewId }, '', path);
+            }
         }
 
         function triggerIPClipCopy(ipText) {
@@ -1575,6 +1588,30 @@
                     counterNode.innerText = "0";
                 });
         }
+
+        // TARAYICI GEÇMİŞİ VE İLK YÜKLENME DİNLEYİCİLERİ
+        window.addEventListener('popstate', (event) => {
+            const viewId = event.state ? event.state.viewId : 'home';
+            executeViewSwitch(viewId, false);
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            
+            if (path === '/magaza') {
+                executeViewSwitch('store', false);
+            } else if (path === '/profil') {
+                executeViewSwitch('profile', false);
+            } else if (path === '/kurallar') {
+                executeViewSwitch('rules', false);
+            } else if (path === '/giris') {
+                executeViewSwitch('auth', false);
+            } else if (path === '/yonetim') {
+                executeViewSwitch('admin', false);
+            } else {
+                executeViewSwitch('home', false);
+            }
+        });
 
         generateMeteorsEngine();
         fetchRealMinecraftPlayers();
